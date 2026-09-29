@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Novedades{% endblock %}
+
+{% block encabezado %}
+<p class="pa-kicker mb-2">Segunda aplicación</p>
+<h1 class="display-5 fw-semibold">Lanzamientos, torneos y ofertas</h1>
+<p class="pa-muted mt-3 mb-0">Esta sección vive en <code>novedadesApp</code> y lee un JSON distinto al del catálogo.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row g-4 mb-4 align-items-center">
+    <div class="col-lg-7">
+        <img src="{% static 'images/evento-torneo.png' %}" alt="Torneo en la tienda" class="hero-img">
+    </div>
+    <div class="col-lg-5">
+        <div class="row g-3">
+            <div class="col-4">
+                <div class="pa-stat">
+                    <p class="pa-muted mb-1">Total</p>
+                    <p class="h3 mb-0">{{ total }}</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="pa-stat">
+                    <p class="pa-muted mb-1">Eventos</p>
+                    <p class="h3 mb-0">{{ eventos }}</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="pa-stat">
+                    <p class="pa-muted mb-1">Lanzam.</p>
+                    <p class="h3 mb-0">{{ lanzamientos }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn btn-sm btn-ghost {% if not filtro %}active{% endif %}" href="{% url 'novedades' %}">Todas</a>
+    {% for tipo in tipos %}
+    <a class="btn btn-sm btn-ghost {% if filtro == tipo %}active{% endif %}" href="?tipo={{ tipo|urlencode }}">{{ tipo }}</a>
+    {% endfor %}
+</div>
+
+<div class="row g-4">
+    {% for item in novedades %}
+    <div class="col-md-6">
+        <article class="pa-card">
+            <img src="{% static 'images/' %}{{ item.imagen }}" alt="{{ item.titulo }}" style="height: 220px;">
+            <div class="p-3">
+                <span class="badge pa-badge mb-2">{{ item.tipo }}</span>
+                <h2 class="h5">{{ item.titulo }}</h2>
+                <p class="pa-muted">{{ item.fecha }}</p>
+                <p>{{ item.resumen }}</p>
+                <a class="btn btn-sm btn-pa" href="{% url 'detalle_novedad' item.id %}">Leer más</a>
+            </div>
+        </article>
+    </div>
+    {% empty %}
+    <p class="pa-muted">No hay novedades para ese filtro.</p>
+    {% endfor %}
+</div>
+{% endblock %}

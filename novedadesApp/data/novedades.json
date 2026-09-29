@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "titulo": "Torneo local de Pixel Rally",
+    "fecha": "2026-09-20",
+    "tipo": "Evento",
+    "imagen": "evento-torneo.png",
+    "resumen": "Inscripciones abiertas para el ranking de septiembre. Premios en crédito de tienda.",
+    "contenido": "El sábado 20 de septiembre armamos mesas en el local para un torneo de Pixel Rally 2. Las inscripciones son presenciales, cupos limitados y el primer lugar se lleva $15.000 en crédito para el catálogo. Trae tu mando o arrienda uno en caja."
+  },
+  {
+    "id": 2,
+    "titulo": "Llegó Islas del Crepúsculo",
+    "fecha": "2026-09-08",
+    "tipo": "Lanzamiento",
+    "imagen": "portada-aventura.png",
+    "resumen": "Ya está en góndola la aventura de islas flotantes. Incluye poster de pre-orden mientras dure stock.",
+    "contenido": "Después de varias semanas en preventa, Islas del Crepúsculo ya se puede llevar el mismo día. Quedan copias para Nintendo Switch y tenemos un poster ilustrado de regalo para las primeras diez compras."
+  },
+  {
+    "id": 3,
+    "titulo": "Noche de granjas y café",
+    "fecha": "2026-09-26",
+    "tipo": "Evento",
+    "imagen": "portada-granja.png",
+    "resumen": "Sesión relajada de Cosecha Serena y Valle Escondido, con playlist y descuento en simuladores.",
+    "contenido": "Una tarde para jugar sin ranking. Habrá dos estaciones de PC y una Switch, café de cortesía y 15% extra en títulos de simulación. Ideal si quieres probar antes de comprar."
+  },
+  {
+    "id": 4,
+    "titulo": "Oferta de accesorios",
+    "fecha": "2026-09-12",
+    "tipo": "Oferta",
+    "imagen": "catalogo-juegos.png",
+    "resumen": "Control Arcade Pro con 5% y combos de limpieza cuando vuelva el stock.",
+    "contenido": "Renovamos vitrina de mandos. El Control Arcade Pro queda con descuento de vitrina. El kit de limpieza está en reposición; puedes dejar tu nombre en lista de espera en caja."
+  }
+]

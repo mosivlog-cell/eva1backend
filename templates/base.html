@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ titulo|default:"Pixel Arcade" }}{% endblock %} · Pixel Arcade</title>
+    <link rel="stylesheet" href="{% static 'images/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'images/css/estilos.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark pa-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="{% url 'inicio' %}">
+                Pixel Arcade
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'inicio' %}active{% endif %}" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'inventario' %}active{% endif %}" href="{% url 'inventario' %}">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'novedades' or request.resolver_match.url_name == 'detalle_novedad' %}active{% endif %}" href="{% url 'novedades' %}">Novedades</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pa-header">
+        <div class="container">
+            {% block encabezado %}
+            <p class="pa-kicker mb-2">Tienda de videojuegos · La Serena</p>
+            <h1 class="display-5 fw-semibold mb-0">{{ titulo|default:"Pixel Arcade" }}</h1>
+            {% endblock %}
+        </div>
+    </header>
+
+    <main class="py-5">
+        <div class="container">
+            {% block contenido %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="pa-footer mt-auto">
+        <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+            <p class="mb-0">Pixel Arcade · catálogo y eventos sin reserva en línea</p>
+            <p class="mb-0">Av. del Mar 120, La Serena · lun a sáb 11:00–20:00</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'images/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

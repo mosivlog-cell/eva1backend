@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "nombre": "Islas del zorras",
+    "plataforma": "Nintendo Switch",
+    "categoria": "Aventura",
+    "precio": 45990,
+    "stock": 7,
+    "descuento": 10,
+    "imagen": "portada-aventura.png",
+    "descripcion": "Explora archipiélagos flotantes y resuelve acertijos en un mundo abierto pintado a mano."
+  },
+  {
+    "id": 2,
+    "nombre": "Neón Asfalto",
+    "plataforma": "PlayStation 5",
+    "categoria": "Carreras",
+    "precio": 52990,
+    "stock": 4,
+    "descuento": 0,
+    "imagen": "portada-carreras.png",
+    "descripcion": "Carreras nocturnas por una ciudad inventada, con clima dinámico y sintonizadora de autos."
+  },
+  {
+    "id": 3,
+    "nombre": "Cosecha Serena",
+    "plataforma": "PC",
+    "categoria": "Simulación",
+    "precio": 18990,
+    "stock": 12,
+    "descuento": 15,
+    "imagen": "portada-granja.png",
+    "descripcion": "Cultiva, pesca y restaura un pueblo costero. Ideal para sesiones relajadas."
+  },
+  {
+    "id": 4,
+    "nombre": "Compañero de Lluvia",
+    "plataforma": "Xbox Series",
+    "categoria": "Aventura",
+    "precio": 39990,
+    "stock": 0,
+    "descuento": 0,
+    "imagen": "portada-robot.png",
+    "descripcion": "Acompaña a un robot curioso por callejones bajo la lluvia. Historia corta e intensa."
+  },
+  {
+    "id": 5,
+    "nombre": "Pixel Rally 2",
+    "plataforma": "PC",
+    "categoria": "Carreras",
+    "precio": 14990,
+    "stock": 9,
+    "descuento": 20,
+    "imagen": "portada-carreras.png",
+    "descripcion": "Arcade de pistas cortas, power-ups y ranking local de la tienda."
+  },
+  {
+    "id": 6,
+    "nombre": "Valle Escondido",
+    "plataforma": "Nintendo Switch",
+    "categoria": "Simulación",
+    "precio": 32990,
+    "stock": 3,
+    "descuento": 0,
+    "imagen": "portada-granja.png",
+    "descripcion": "Administra una granja de montaña y participa en ferias semanales del valle."
+  },
+  {
+    "id": 7,
+    "nombre": "Control Arcade Pro",
+    "plataforma": "Accesorio",
+    "categoria": "Accesorio",
+    "precio": 24990,
+    "stock": 15,
+    "descuento": 5,
+    "imagen": "catalogo-juegos.png",
+    "descripcion": "Mando inalámbrico de uso general, compatible con PC y modo escritorio."
+  },
+  {
+    "id": 8,
+    "nombre": "Kit limpieza de discos",
+    "plataforma": "Accesorio",
+    "categoria": "Accesorio",
+    "precio": 7990,
+    "stock": 0,
+    "descuento": 0,
+    "imagen": "catalogo-juegos.png",
+    "descripcion": "Paño de microfibra y solución para carcasas. Stock temporalmente agotado."
+  }
+]

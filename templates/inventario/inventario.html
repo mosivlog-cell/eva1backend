@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Catálogo{% endblock %}
+
+{% block encabezado %}
+<p class="pa-kicker mb-2">Inventario</p>
+<h1 class="display-5 fw-semibold">Catálogo Pixel Arcade</h1>
+<p class="pa-muted mt-3 mb-0">Precios finales, stock y filtros se resuelven en la vista con Python antes de llegar a la plantilla.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="pa-stat">
+            <p class="pa-muted mb-1">Mostrando</p>
+            <p class="h3 mb-0">{{ total }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="pa-stat">
+            <p class="pa-muted mb-1">Disponibles / agotados</p>
+            <p class="h3 mb-0">{{ disponibles }} / {{ agotados }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="pa-stat">
+            <p class="pa-muted mb-1">Valor de stock filtrado</p>
+            <p class="h3 mb-0">${{ valor_inventario }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn btn-sm btn-ghost {% if not filtro %}active{% endif %}" href="{% url 'inventario' %}">Todas</a>
+    {% for plataforma in plataformas %}
+    <a class="btn btn-sm btn-ghost {% if filtro == plataforma %}active{% endif %}" href="?plataforma={{ plataforma|urlencode }}">{{ plataforma }}</a>
+    {% endfor %}
+</div>
+
+<div class="row g-4">
+    {% for item in catalogo %}
+    <div class="col-md-6 col-lg-3">
+        <article class="pa-card">
+            <img src="{% static 'images/' %}{{ item.imagen }}" alt="{{ item.nombre }}" style="height: 240px;">
+            <div class="p-3">
+                {% if item.disponible %}
+                <span class="badge pa-badge mb-2">{{ item.stock }} en tienda</span>
+                {% else %}
+                <span class="badge pa-badge-warn mb-2">Agotado</span>
+                {% endif %}
+                <h2 class="h5">{{ item.nombre }}</h2>
+                <p class="pa-muted mb-2">{{ item.plataforma }} · {{ item.categoria }}</p>
+                <p class="small mb-2">{{ item.descripcion }}</p>
+                {% if item.descuento > 0 %}
+                <p class="mb-0">
+                    <span class="price-old">${{ item.precio }}</span>
+                    <strong> ${{ item.precio_final }}</strong>
+                </p>
+                {% else %}
+                <p class="mb-0"><strong>${{ item.precio_final }}</strong></p>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+    {% empty %}
+    <p class="pa-muted">No hay productos para ese filtro.</p>
+    {% endfor %}
+</div>
+{% endblock %}

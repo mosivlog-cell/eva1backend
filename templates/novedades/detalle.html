@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ novedad.titulo }}{% endblock %}
+
+{% block encabezado %}
+<p class="pa-kicker mb-2">{{ novedad.tipo }} · {{ novedad.fecha }}</p>
+<h1 class="display-5 fw-semibold">{{ novedad.titulo }}</h1>
+{% endblock %}
+
+{% block contenido %}
+<div class="row g-4">
+    <div class="col-lg-7">
+        <img src="{% static 'images/' %}{{ novedad.imagen }}" alt="{{ novedad.titulo }}" class="hero-img mb-4">
+        <p class="lead">{{ novedad.contenido }}</p>
+        <a class="btn btn-ghost" href="{% url 'novedades' %}">Volver al listado</a>
+    </div>
+    <div class="col-lg-5">
+        <h2 class="h5 mb-3">Del mismo tipo</h2>
+        {% for item in relacionadas %}
+        <article class="pa-card mb-3">
+            <div class="p-3">
+                <p class="pa-muted mb-1">{{ item.fecha }}</p>
+                <h3 class="h6">{{ item.titulo }}</h3>
+                <a href="{% url 'detalle_novedad' item.id %}">Abrir</a>
+            </div>
+        </article>
+        {% empty %}
+        <p class="pa-muted">No hay otras novedades de este tipo.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

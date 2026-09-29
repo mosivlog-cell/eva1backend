@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block encabezado %}
+<p class="pa-kicker mb-2">Bienvenida</p>
+<h1 class="display-5 fw-semibold">Juegos, mandos y noches de torneo</h1>
+<p class="pa-muted mt-3 mb-0 col-lg-8">Pixel Arcade es una tienda de barrio en La Serena. El catálogo se arma desde archivos JSON en el servidor: precios, stock y descuentos se calculan al cargar cada vista.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row g-4 align-items-center mb-5">
+    <div class="col-lg-7">
+        <img src="{% static 'images/hero-pixel-arcade.png' %}" alt="Interior de la tienda Pixel Arcade" class="hero-img">
+    </div>
+    <div class="col-lg-5">
+        <div class="pa-stat mb-3">
+            <p class="pa-kicker mb-1">En góndola</p>
+            <p class="display-6 mb-0">{{ total_titulos }}</p>
+            <p class="pa-muted mb-0">títulos y accesorios cargados desde JSON</p>
+        </div>
+        <a class="btn btn-pa px-4 me-2" href="{% url 'inventario' %}">Ver catálogo</a>
+        <a class="btn btn-ghost px-4" href="{% url 'novedades' %}">Novedades</a>
+    </div>
+</div>
+
+<h2 class="h4 mb-3">Ofertas de vitrina</h2>
+<p class="pa-muted mb-4">Solo se listan productos con descuento y stock disponible.</p>
+<div class="row g-4">
+    {% for item in destacados %}
+    <div class="col-md-4">
+        <article class="pa-card">
+            <img src="{% static 'images/' %}{{ item.imagen }}" alt="{{ item.nombre }}" style="height: 220px;">
+            <div class="p-3">
+                <span class="badge pa-badge mb-2">-{{ item.descuento }}%</span>
+                <h3 class="h5">{{ item.nombre }}</h3>
+                <p class="pa-muted mb-0">{{ item.plataforma }}</p>
+            </div>
+        </article>
+    </div>
+    {% empty %}
+    <p class="pa-muted">No hay ofertas activas por ahora.</p>
+    {% endfor %}
+</div>
+{% endblock %}
