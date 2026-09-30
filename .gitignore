@@ -13,6 +13,8 @@ env/
 *.sqlite3
 media/
 staticfiles/
+.vscode/
+*.log
 
 .DS_Store
 Thumbs.db
