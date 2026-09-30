@@ -6,7 +6,7 @@
 {% block encabezado %}
 <p class="pa-kicker mb-2">Bienvenida</p>
 <h1 class="display-5 fw-semibold">Juegos, mandos y noches de torneo</h1>
-<p class="pa-muted mt-3 mb-0 col-lg-8">Pixel Arcade es una tienda de barrio en La Serena. El catálogo se arma desde archivos JSON en el servidor: precios, stock y descuentos se calculan al cargar cada vista.</p>
+<p class="pa-muted mt-3 mb-0 col-lg-8">Pixel Arcade es una tienda de barrio en La Serena. Consulta el catálogo, el inventario disponible y las novedades del local.</p>
 {% endblock %}
 
 {% block contenido %}
@@ -17,8 +17,8 @@
     <div class="col-lg-5">
         <div class="pa-stat mb-3">
             <p class="pa-kicker mb-1">En góndola</p>
-            <p class="display-6 mb-0">{{ total_titulos }}</p>
-            <p class="pa-muted mb-0">títulos y accesorios cargados desde JSON</p>
+            <p class="display-6 mb-0">{{ total_productos }}</p>
+            <p class="pa-muted mb-0">productos activos · {{ total_categorias }} categorías</p>
         </div>
         <a class="btn btn-pa px-4 me-2" href="{% url 'inventario' %}">Ver catálogo</a>
         <a class="btn btn-ghost px-4" href="{% url 'novedades' %}">Novedades</a>
@@ -33,14 +33,39 @@
         <article class="pa-card">
             <img src="{% static 'images/' %}{{ item.imagen }}" alt="{{ item.nombre }}" style="height: 220px;">
             <div class="p-3">
-                <span class="badge pa-badge mb-2">-{{ item.descuento }}%</span>
+                <span class="badge pa-badge mb-2">{{ item.get_tipo_display }}</span>
                 <h3 class="h5">{{ item.nombre }}</h3>
-                <p class="pa-muted mb-0">{{ item.plataforma }}</p>
+                <p class="pa-muted mb-0">{{ item.categoria }} · ${{ item.precio }}</p>
             </div>
         </article>
     </div>
     {% empty %}
     <p class="pa-muted">No hay ofertas activas por ahora.</p>
     {% endfor %}
+</div>
+<div class="row g-5 mt-4">
+    <section class="col-lg-7">
+        <h2 class="h4 mb-3">Últimas novedades</h2>
+        {% for novedad in ultimas_novedades %}
+        <article class="mb-3">
+            <p class="pa-kicker mb-1">{{ novedad.tipo }} · {{ novedad.fecha|date:"d/m/Y" }}</p>
+            <h3 class="h5 mb-1"><a href="{% url 'detalle_novedad' novedad.pk %}">{{ novedad.titulo }}</a></h3>
+            <p class="pa-muted mb-0">{{ novedad.resumen }}</p>
+        </article>
+        {% empty %}
+        <p class="pa-muted">No hay novedades publicadas.</p>
+        {% endfor %}
+    </section>
+    <section class="col-lg-5">
+        <h2 class="h4 mb-3">Próximo evento</h2>
+        {% if proximo_evento %}
+        <h3 class="h5">{{ proximo_evento.nombre }}</h3>
+        <p>{{ proximo_evento.fecha_evento|date:"d/m/Y H:i" }} · {{ proximo_evento.lugar }}</p>
+        <p class="pa-muted">{{ proximo_evento.descripcion }}</p>
+        {% else %}
+        <p class="pa-muted">No hay eventos próximos.</p>
+        {% endif %}
+        <a class="btn btn-sm btn-ghost" href="{% url 'lista_eventos' %}">Ver eventos</a>
+    </section>
 </div>
 {% endblock %}

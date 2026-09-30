@@ -12,7 +12,7 @@
 <div class="row g-4">
     <div class="col-lg-7">
         <img src="{% static 'images/' %}{{ novedad.imagen }}" alt="{{ novedad.titulo }}" class="hero-img mb-4">
-        <p class="lead">{{ novedad.contenido }}</p>
+        <p class="lead">{{ novedad.resumen }}</p>
         <a class="btn btn-ghost" href="{% url 'novedades' %}">Volver al listado</a>
     </div>
     <div class="col-lg-5">

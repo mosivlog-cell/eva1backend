@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Proveedores{% endblock %}
+
+{% block encabezado %}
+<p class="pa-kicker mb-2">Inventario</p>
+<h1 class="display-5 fw-semibold">Proveedores</h1>
+<p class="pa-muted mt-3 mb-0">Contactos asociados a los productos del catálogo.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row g-3">
+    {% for proveedor in proveedores %}
+    <div class="col-md-6 col-lg-4">
+        <article class="pa-card h-100">
+            <div class="p-3">
+                <h2 class="h5">{{ proveedor.nombre }}</h2>
+                {% if proveedor.correo %}<p class="mb-1">{{ proveedor.correo }}</p>{% endif %}
+                {% if proveedor.telefono %}<p class="pa-muted">{{ proveedor.telefono }}</p>{% endif %}
+                <p class="mb-0">{{ proveedor.total }} productos</p>
+            </div>
+        </article>
+    </div>
+    {% empty %}
+    <p class="pa-muted">Todavía no hay proveedores registrados.</p>
+    {% endfor %}
+</div>
+{% endblock %}

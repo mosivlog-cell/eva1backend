@@ -6,7 +6,7 @@
 {% block encabezado %}
 <p class="pa-kicker mb-2">Segunda aplicación</p>
 <h1 class="display-5 fw-semibold">Lanzamientos, torneos y ofertas</h1>
-<p class="pa-muted mt-3 mb-0">Esta sección vive en <code>novedadesApp</code> y lee un JSON distinto al del catálogo.</p>
+<p class="pa-muted mt-3 mb-0">Noticias, lanzamientos y actividades de Pixel Arcade.</p>
 {% endblock %}
 
 {% block contenido %}
@@ -39,6 +39,7 @@
 </div>
 
 <div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn btn-sm btn-pa" href="{% url 'lista_eventos' %}">Ver próximos eventos</a>
     <a class="btn btn-sm btn-ghost {% if not filtro %}active{% endif %}" href="{% url 'novedades' %}">Todas</a>
     {% for tipo in tipos %}
     <a class="btn btn-sm btn-ghost {% if filtro == tipo %}active{% endif %}" href="?tipo={{ tipo|urlencode }}">{{ tipo }}</a>

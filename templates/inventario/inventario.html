@@ -6,7 +6,7 @@
 {% block encabezado %}
 <p class="pa-kicker mb-2">Inventario</p>
 <h1 class="display-5 fw-semibold">Catálogo Pixel Arcade</h1>
-<p class="pa-muted mt-3 mb-0">Precios finales, stock y filtros se resuelven en la vista con Python antes de llegar a la plantilla.</p>
+<p class="pa-muted mt-3 mb-0">Productos activos agrupados por tipo, categoría y disponibilidad.</p>
 {% endblock %}
 
 {% block contenido %}
@@ -32,7 +32,7 @@
 </div>
 
 <div class="d-flex flex-wrap gap-2 mb-4">
-    <a class="btn btn-sm btn-ghost {% if not filtro %}active{% endif %}" href="{% url 'inventario' %}">Todas</a>
+    <a class="btn btn-sm btn-ghost {% if not filtro %}active{% endif %}" href="{% url 'inventario' %}">Todos los tipos</a>
     {% for plataforma in plataformas %}
     <a class="btn btn-sm btn-ghost {% if filtro == plataforma %}active{% endif %}" href="?plataforma={{ plataforma|urlencode }}">{{ plataforma }}</a>
     {% endfor %}
@@ -52,14 +52,7 @@
                 <h2 class="h5">{{ item.nombre }}</h2>
                 <p class="pa-muted mb-2">{{ item.plataforma }} · {{ item.categoria }}</p>
                 <p class="small mb-2">{{ item.descripcion }}</p>
-                {% if item.descuento > 0 %}
-                <p class="mb-0">
-                    <span class="price-old">${{ item.precio }}</span>
-                    <strong> ${{ item.precio_final }}</strong>
-                </p>
-                {% else %}
                 <p class="mb-0"><strong>${{ item.precio_final }}</strong></p>
-                {% endif %}
             </div>
         </article>
     </div>

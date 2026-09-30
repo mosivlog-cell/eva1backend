@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Categorías{% endblock %}
+
+{% block encabezado %}
+<p class="pa-kicker mb-2">Inventario</p>
+<h1 class="display-5 fw-semibold">Categorías</h1>
+<p class="pa-muted mt-3 mb-0">Categorías registradas en el catálogo.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row g-3">
+    {% for categoria in categorias %}
+    <div class="col-md-6 col-lg-4">
+        <article class="pa-card h-100">
+            <div class="p-3">
+                <h2 class="h5">{{ categoria.nombre }}</h2>
+                <p class="pa-muted">{{ categoria.descripcion|default:"Sin descripción" }}</p>
+                <p class="mb-0">{{ categoria.total }} productos</p>
+            </div>
+        </article>
+    </div>
+    {% empty %}
+    <p class="pa-muted">Todavía no hay categorías registradas.</p>
+    {% endfor %}
+</div>
+{% endblock %}

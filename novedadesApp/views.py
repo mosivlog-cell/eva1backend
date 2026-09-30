@@ -1,77 +1,58 @@
-import json
-from pathlib import Path
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 
-from django.conf import settings
-from django.http import Http404
-from django.shortcuts import render
+from inventarioApp.models import Categoria, Producto
+from novedadesApp.models import Evento, Novedad, TipoNovedad
 
 
-def cargar_novedades():
-    ruta = Path(settings.BASE_DIR) / 'novedadesApp' / 'data' / 'novedades.json'
-    with open(ruta, encoding='utf-8') as archivo:
-        return json.load(archivo)
+def inicio(request):
+    productos = Producto.objects.filter(activo=True)
+    contexto = {
+        'titulo': 'Pixel Arcade',
+        'total_productos': productos.count(),
+        'total_categorias': Categoria.objects.count(),
+        'destacados': productos.filter(stock__gt=0).select_related('categoria').order_by('-creado')[:4],
+        'ultimas_novedades': Novedad.objects.filter(publicada=True).select_related('tipo').order_by('-fecha')[:3],
+        'proximo_evento': Evento.objects.filter(fecha_evento__gte=timezone.now()).order_by('fecha_evento').first(),
+    }
+    return render(request, 'inicio.html', contexto)
 
 
 def novedades(request):
-    datos = cargar_novedades()
     tipo_filtro = request.GET.get('tipo', '').strip()
-    lista = []
-    tipos = []
-    eventos = 0
-    lanzamientos = 0
-    ofertas = 0
-
-    for item in datos:
-        tipo = item.get('tipo', 'Otro')
-        if tipo not in tipos:
-            tipos.append(tipo)
-
-        if tipo == 'Evento':
-            eventos += 1
-        elif tipo == 'Lanzamiento':
-            lanzamientos += 1
-        elif tipo == 'Oferta':
-            ofertas += 1
-
-        if tipo_filtro and tipo != tipo_filtro:
-            continue
-        lista.append(item)
+    lista = Novedad.objects.select_related('tipo', 'producto').filter(publicada=True)
+    if tipo_filtro:
+        lista = lista.filter(tipo__nombre=tipo_filtro)
 
     contexto = {
         'titulo': 'Novedades y eventos',
         'novedades': lista,
-        'tipos': tipos,
+        'tipos': TipoNovedad.objects.values_list('nombre', flat=True),
         'filtro': tipo_filtro,
-        'eventos': eventos,
-        'lanzamientos': lanzamientos,
-        'ofertas': ofertas,
-        'total': len(datos),
+        'eventos': Novedad.objects.filter(publicada=True, tipo__nombre='Evento').count(),
+        'lanzamientos': Novedad.objects.filter(publicada=True, tipo__nombre='Lanzamiento').count(),
+        'ofertas': Novedad.objects.filter(publicada=True, tipo__nombre='Oferta').count(),
+        'total': Novedad.objects.filter(publicada=True).count(),
     }
     return render(request, 'novedades/novedades.html', contexto)
 
 
 def detalle(request, novedad_id):
-    datos = cargar_novedades()
-    encontrada = None
-
-    for item in datos:
-        if int(item.get('id', 0)) == int(novedad_id):
-            encontrada = item
-            break
-
-    if encontrada is None:
-        raise Http404('No encontramos esa novedad.')
-
-    relacionadas = []
-    for item in datos:
-        mismo_tipo = item.get('tipo') == encontrada.get('tipo')
-        distinta = int(item.get('id', 0)) != int(novedad_id)
-        if mismo_tipo and distinta:
-            relacionadas.append(item)
-
-    contexto = {
-        'titulo': encontrada.get('titulo'),
-        'novedad': encontrada,
+    novedad = get_object_or_404(
+        Novedad.objects.select_related('tipo', 'producto'), pk=novedad_id, publicada=True
+    )
+    relacionadas = Novedad.objects.filter(publicada=True, tipo=novedad.tipo).exclude(pk=novedad.pk)
+    return render(request, 'novedades/detalle.html', {
+        'titulo': novedad.titulo,
+        'novedad': novedad,
         'relacionadas': relacionadas,
-    }
-    return render(request, 'novedades/detalle.html', contexto)
+    })
+
+
+def lista_novedades(request):
+    return novedades(request)
+
+
+def lista_eventos(request):
+    eventos = Evento.objects.order_by('fecha_evento')
+    return render(request, 'novedades/lista_eventos.html', {'eventos': eventos})

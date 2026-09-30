@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Eventos{% endblock %}
+
+{% block encabezado %}
+<p class="pa-kicker mb-2">Pixel Arcade</p>
+<h1 class="display-5 fw-semibold">Próximos eventos</h1>
+<p class="pa-muted mt-3 mb-0">Actividades y encuentros en la tienda.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row g-4">
+    {% for evento in eventos %}
+    <div class="col-md-6">
+        <article class="pa-card h-100">
+            {% if evento.imagen %}<img src="{% static 'images/' %}{{ evento.imagen }}" alt="{{ evento.nombre }}" style="height: 220px;">{% endif %}
+            <div class="p-3">
+                <p class="pa-kicker">{{ evento.fecha_evento|date:"d/m/Y H:i" }}</p>
+                <h2 class="h5">{{ evento.nombre }}</h2>
+                <p>{{ evento.descripcion }}</p>
+                <p class="pa-muted mb-0">{{ evento.lugar }} · {{ evento.cupos }} cupos</p>
+            </div>
+        </article>
+    </div>
+    {% empty %}
+    <p class="pa-muted">No hay eventos próximos publicados.</p>
+    {% endfor %}
+</div>
+{% endblock %}
